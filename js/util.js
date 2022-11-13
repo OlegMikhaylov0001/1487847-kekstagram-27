@@ -14,6 +14,8 @@ function randomInteger(min, max) {
 randomInteger (1, 8);
 // источник learn.javascript.ru
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const getRandomArrayElement = (array) => array[randomInteger(0, array.length - 1)];
 
-export {randomInteger, getRandomArrayElement};
+export {randomInteger, getRandomArrayElement,isEscapeKey};

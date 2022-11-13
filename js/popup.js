@@ -1,3 +1,5 @@
+import {isEscapeKey} from './util.js';
+
 const popUp = document.querySelector('.big-picture'); // находим поп ап у которого надо убрать класс hidden
 const popUpUrl = popUp.querySelector('.big-picture__img');
 const commentCount = document.querySelector('.social__comment-count'); // находим счетчик комментариев
@@ -5,20 +7,32 @@ const userSocialList = document.querySelector('.social__comments'); // спис�
 const userSocialTemplate = document.querySelector('#user-comment').content.querySelector('.social__comment'); // ищем шаблон и li внутри него
 const closeButton = document.querySelector('.big-picture__cancel'); // кнопка закрытия поп ап
 const bodyModal = document.querySelector('body');
-// Закрывание по клику на крестик
-const closePopUp = (e) => {
 
-  if ( !e.keyCode || e.keyCode === 27){
-    popUp.classList.add('hidden');
-    bodyModal.classList.remove('.modal-open');
-    userSocialList.innerHTML = '';
-  }
-};
+const removePopUpHidden = () => popUp.classList.add('hidden');
+// Закрывание по клику на крестик
+// const closePopUp = (e) => {
+
+//   if ( !e.keyCode || e.keyCode === 27){
+//     e.preventDefault();
+//     popUp.classList.add('hidden');
+//     bodyModal.classList.remove('.modal-open');
+//     userSocialList.innerHTML = '';
+//   }
+// };
 
 const openPopUp = () => {
   popUp.classList.remove('hidden');
   bodyModal.classList.add('.modal-open');
 };
+
+document.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    removePopUpHidden();
+    bodyModal.classList.remove('.modal-open');
+    userSocialList.innerHTML = '';
+  }
+});
 
 // document.addEventListener('keydown', function (evt) {
 //   if (evt.keyCode === 27) // проверяем что код равен esc
@@ -27,8 +41,8 @@ const openPopUp = () => {
 //   }
 // });
 
-closeButton.addEventListener('click', closePopUp); // навешиваем слушатель на кнопку
-document.addEventListener('keydown', closePopUp);
+closeButton.addEventListener('click', removePopUpHidden); // навешиваем слушатель на кнопку
+// document.addEventListener('keydown', closePopUp);
 
 const showComments = (commentsArray) => {
 
