@@ -1,4 +1,4 @@
-function maxLength (string, number) {
+function maxLength (string, number = 140) {
   return string.length <= number;
 }
 maxLength('', 140);
@@ -18,4 +18,4 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const getRandomArrayElement = (array) => array[randomInteger(0, array.length - 1)];
 
-export {randomInteger, getRandomArrayElement,isEscapeKey};
+export {randomInteger, getRandomArrayElement,isEscapeKey,maxLength};

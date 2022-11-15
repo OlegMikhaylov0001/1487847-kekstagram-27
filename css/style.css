@@ -1408,3 +1408,18 @@ main {
 .hidden {
   display: none;
 }
+
+.has-danger textarea,
+.has-danger input {
+  box-shadow:0 0 2px 2px red;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.has-success textarea,
+.has-success input
+ {
+  box-shadow:0 0 2px 2px green;
+  outline: none;
+  -webkit-appearance: none;
+}
