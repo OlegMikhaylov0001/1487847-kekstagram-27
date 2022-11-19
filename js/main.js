@@ -9,7 +9,13 @@ createMiniatures(miniatures);
 ///// экспортировать
 const formAddPicture = document.querySelector('.img-upload__form');
 const UploadForm = document.querySelector('.img-upload__overlay');
-UploadForm.classList.remove('hidden');
+const formInput = document.querySelector('.img-upload__input');
+formInput.addEventListener('change', (evt)=> {
+  UploadForm.classList.remove('hidden');
+}
+
+)
+// UploadForm.classList.remove('hidden');
 const closeButtonForm = document.querySelector('.img-upload__cancel');
 
 const removeUploadFormHidden = () => {
@@ -48,7 +54,7 @@ pristine.addValidator(descriptionField, maxLength, 'От 2 до 50 символ�
 
 const validateHashtagRegular = (value) => hashtagRegular.test(value);
 
-pristine.addValidator(hashtagInput, validateHashtagRegular);
+pristine.addValidator(hashtagInput, validateHashtagRegular, 'ddddddd');
 
 descriptionField.addEventListener('input', () => {
   if (descriptionField.value === '') {
@@ -63,21 +69,64 @@ hashtagInput.addEventListener('input', (evt) => {
 });
 
 formAddPicture.addEventListener('submit', (evt) => {
-  evt.preventDefault();
   const valid = pristine.validate();
-  console.log(valid);
+  if (valid) {
+    // debugger
+    return
+  }
+  evt.preventDefault();
+
 });
 
 
 ////slider
+// const listItemEffect = document.querySelectorAll('.effects__item');
+// const span = listItemEffect.querySelector('span');
+const listEffects = document.querySelectorAll('.effects__radio');
+
 const sliderElement = document.querySelector('.effect-level__slider');
+const valueElement = document.querySelector('.effect-level__value');
+const specialElement = document.querySelector('.effects__radio');
+const pictureInSlider = document.querySelector('.img-upload__preview').firstElementChild;
+const effectChrome = document.querySelector('#effect-chrome');
+const effectSepia = document.querySelector('#effect-sepia');
+
+
+
+listEffects.forEach((listItem) => listItem.addEventListener('change',
+  (evt) => {
+
+  const nameClassEffect = evt.target.parentNode.querySelector('span').classList[1];
+  pictureInSlider.classList.add(nameClassEffect);
+  }
+
+));
 
 noUiSlider.create(sliderElement, {
-  start: [20, 80],
-  connect: true,
   range: {
-      'min': 0,
-      'max': 100
-  }
+    min: 0,
+    max: 100,
+  },
+  start: 100,
+  step: 1,
+  connect: 'lower',
 });
+
+sliderElement.noUiSlider.on('update', (...rest) => {
+  // console.log(rest);
+});
+
+sliderElement.noUiSlider.on('update', () => {
+  valueElement.value = sliderElement.noUiSlider.get();
+});
+
+
+// effectChrome.addEventListener('change', (evt) => {
+//   if (evt.target.checked) {
+
+//     pictureInSlider.classList.add('effects__preview--chrome');
+//   } else {
+//     // Цена и шаг по умолчанию
+//   }
+// });
 
